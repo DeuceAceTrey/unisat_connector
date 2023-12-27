@@ -5,7 +5,14 @@ import { useState } from 'react';
 declare global {
   interface Window {
     unisat : any,
-    litescribe : any
+    litescribe : any,
+    ordinals : any,
+    xverse : any,
+    leather : any,
+    phantom : any,
+    BitcoinProvider : any,
+    XverseProviders : any,
+    LeatherProvider  :any,
   }
 }
 
@@ -26,7 +33,7 @@ const connectWallet = async () => {
     
     setAccounts(accounts);
   } catch (e) {
-    console.log('connect failed');
+    console.log('LiteScribe Connection failed');
   }
 
   try {
@@ -59,6 +66,45 @@ const connectWallet = async () => {
 
   
 }
+
+const connectUnisat =  async () => {
+  console.log('unisat')
+  try{
+    let accounts = await window.unisat.requestAccounts();
+
+  }
+  catch {
+    console.log('Unisat Connection failed')
+  }
+}
+
+
+
+const connectXverse = async () => {
+  try {
+    let accounts = await window.XverseProviders.BitcoinProvider.connect();
+  }
+  catch{
+    console.log('Xverse Connection failed')
+  }
+
+
+}
+
+const connectLeather =  async () => {
+  try {
+    let accounts = await window.LeatherProvider.authenticationRequest();
+  }
+  catch {
+    console.log('Leather Connection failed')
+  }
+}
+
+
+
+const connectPhantom = async () => {
+  console.log(window);
+}
   return (
     <div className="App">
       <header className="App-header">
@@ -68,6 +114,26 @@ const connectWallet = async () => {
         </p>
         <button onClick={()=>{connectWallet()}}>
           Wallet
+        </button>
+
+        <button onClick={()=>{connectUnisat()}}>
+          Connect Unisat
+        </button>
+
+
+        <button onClick={()=>{connectXverse()}}>
+          Connect Xverse
+        </button>
+
+        <button onClick={()=>{connectLeather()}}>
+          Connect Leather
+        </button>
+
+        <button onClick={()=>{connectPhantom()}}>
+          Connect Phantom
+        </button>
+        <button onClick={() => {window.litescribe.initialize()}}>
+          Disconnect
         </button>
 
         <p>
